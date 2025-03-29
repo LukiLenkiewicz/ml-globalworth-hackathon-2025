@@ -1,6 +1,6 @@
 {
   "zdjecia": {
-    "zewnetrzne": "Warsaw_Trade_Tower.jpg",
+    "zewnetrzne": "tower_images/Warsaw_Trade_Tower.jpg",
     "wewnetrzne": [
       "empty_office_1.jpeg",
       "empty_office_2.jpeg"
@@ -15,8 +15,10 @@
   },
   "pietra": [
     {
-      "zdjęcie 1" : "office_images/1st_floor_1.jpeg",
-      "zdjęcie 2" : "office_images/1st_floor_2.jpg",
+      "zdjecia": [
+        "office_images/1st_floor_1.jpeg",
+        "office_images/1st_floor_2.jpg"
+      ],
       "numer": 1,
       "dostepnosc_od": "04.04.2025",
       "powierzchnia": "1000 m²",
@@ -25,8 +27,10 @@
       "wydzielenia": [600, 1000, 1200]
     },
     {
-      "zdjęcie 1" : "office_images/2nd_floor_1.jpg",
-      "zdjęcie 2" : "office_images/2nd_floor_2.jpg",
+      "zdjecia": [
+        "office_images/2nd_floor_1.jpg",
+        "office_images/2nd_floor_2.jpg"
+      ],
       "numer": 2,
       "dostepnosc_od": "10.10.2026",
       "powierzchnia": "1200 m²",
