@@ -1,0 +1,93 @@
+{
+  "zdjecia": {
+    "zewnetrzne": "Warta_Tower.jpg",
+    "wewnetrzne": [
+      "empty_office_3.jpeg",
+      "empty_office_4.jpeg"
+    ]
+  },
+  "budynek": {
+    "nazwa": "WARTA Tower",
+    "adres": "ul. Chmielna 85/87, 00-805 Warszawa",
+    "miasto": "Warszawa",
+    "lokalizacja": "Wola, Warszawa",
+    "opis_okolicy": "WARTA Tower, zlokalizowana na Woli w Warszawie, znajduje się w dynamicznie rozwijającym się otoczeniu biznesowym. Bliskość głównych arterii komunikacyjnych, stacji metra i przystanków autobusowych gwarantuje doskonałą komunikację z resztą miasta."
+  },
+  "pietra": [
+    {
+      "zdjęcie 1" : "office_images/3rd_floor_1.jpg",
+      "zdjęcie 2" : "office_images/3rd_floor_2.jpg",
+      "numer": 3,
+      "dostepnosc": true,
+      "powierzchnia": "1300 m²",
+      "cena": "57 PLN/m²",
+      "najkrotszy_okres_najmu": "12 miesiecy",
+      "wydzielenia": [600, 1000, 1200]
+    },
+    {
+      "zdjęcie 1" : "office_images/4th_floor_1.jpg",
+      "zdjęcie 2" : "office_images/4th_floor_2.jpeg",
+      "numer": 4,
+      "dostepnosc": false,
+      "powierzchnia": "1600 m²",
+      "cena": "62 PLN/m²",
+      "najkrotszy_okres_najmu": "24 miesiace",
+      "wydzielenia": [400, 400, 1200]
+    }
+  ],
+  "udogodnienia": [
+    "klimatyzacja",
+    "system zarzadzania budynkiem",
+    "monitoring",
+    "parking podziemny",
+    "restauracje i kawiarnie"
+  ],
+  "transport": {
+    "metro": [
+      {
+        "przystanek": "Metro Rondo Daszynskiego",
+        "odleglosc": "1 km",
+        "linie": ["M2"]
+      }
+    ],
+    "autobus": [
+      {
+        "przystanek": "Przystanek Ochota",
+        "odleglosc": "600 m",
+        "linie": ["124", "131"]
+      }
+    ],
+    "tramwaj": [
+      {
+        "przystanek": "Przystanek Chmielna",
+        "odleglosc": "300 m",
+        "linie": ["22", "33"]
+      }
+    ]
+  },
+  "sasiedztwo": [
+    {
+      "nazwa_budynku": "Warsaw Spire",
+      "odleglosc": "1.5 km"
+    },
+    {
+      "nazwa_budynku": "Zlote Tarasy",
+      "odleglosc": "2 km"
+    }
+  ],
+  "uslugi_w_budynku": [
+    "recepcja",
+    "centrum konferencyjne",
+    "fitness",
+    "sklep spozywczy"
+  ],
+  "dostepnosc_dla_osob_niepelnosprawnych": true,
+  "powierzchnia_magazynowa": "600 m²",
+  "liczba_miejsc_parkingowych": 568,
+  "typ_parkingu": "podziemny",
+  "typ_biur": [
+    "open space",
+    "biura zamkniete"
+  ],
+  "wysokosc_kondygnacji": "3 m"
+}
