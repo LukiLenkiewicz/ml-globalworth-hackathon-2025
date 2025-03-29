@@ -1,0 +1,69 @@
+{
+    "zdjecie zewnetrzne": "Warsaw_Trade_Tower.jpg",
+    "zdjecie wewnetrzne 1": "empty_office_1.jpeg",
+    "zdjecie wewnetrzne 2": "empty_office_2.jpeg",
+    "nazwa budynku": "Warsaw Trade Tower",
+    "adres": "ul. Chłodna 51, 00-867 Warszawa",
+    "miasto": "Warszawa",
+    "piętra": {
+      "piętro 1": "dostępne, powierzchnia 1000 m², cena 50 PLN/m²",
+      "piętro 2": "dostępne, powierzchnia 1200 m², cena 55 PLN/m²"
+    },
+    "udogodnienia": [
+      "klimatyzacja",
+      "system zarządzania budynkiem",
+      "monitoring",
+      "parking podziemny",
+      "restauracje i kawiarnie"
+    ],
+    "transport": {
+      "metro": [
+        {
+          "przystanek": "Muzeum Powstania Warszawskiego",
+          "odległość": "650 m",
+          "linie": ["M1"]
+        }
+      ],
+      "autobus": [
+        {
+          "przystanek": "Przystanek Reduta",
+          "odległość": "150 m",
+          "linie": ["145", "146", "522"]
+        }
+      ],
+      "tramwaj": [
+        {
+          "przystanek": "Przystanek Okopowa",
+          "odległość": "39 m",
+          "linie": ["22", "25", "33"]
+        }
+      ]
+    },
+    "sąsiedztwo": [
+      {
+        "nazwa budynku": "Warsaw Spire",
+        "odległość": "1 km"
+      },
+      {
+        "nazwa budynku": "Złote Tarasy",
+        "odległość": "2 km"
+      }
+    ],
+    "usługi w budynku": [
+      "recepcja",
+      "centrum konferencyjne",
+      "fitness",
+      "sklep spożywczy"
+    ],
+    "dostępność dla osób niepełnosprawnych": true,
+    "powierzchnia magazynowa": "500 m²",
+    "liczba miejsc parkingowych": 200,
+    "typ parkingu": "podziemny",
+    "typ biur": [
+      "open space",
+      "biura zamknięte"
+    ],
+    "wysokość kondygnacji": "3 m",
+    "lokalizacja": "Wola, Warszawa",
+    "opis okolicy": "Okolica Warsaw Trade Tower charakteryzuje się dynamicznym rozwojem. W pobliżu znajdują się liczne centra handlowe, restauracje i punkty usługowe, a doskonała komunikacja miejska łączy tę część Warszawy z resztą miasta."
+  }  
