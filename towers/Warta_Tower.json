@@ -15,6 +15,8 @@
   },
   "pietra": [
     {
+      "zdjęcie 1" : "office_images/3rd_floor_1.jpg",
+      "zdjęcie 2" : "office_images/3rd_floor_2.jpg",
       "numer": 3,
       "dostepnosc": true,
       "powierzchnia": "1300 m²",
@@ -23,6 +25,8 @@
       "wydzielenia": [600, 1000, 1200]
     },
     {
+      "zdjęcie 1" : "office_images/4th_floor_1.jpg",
+      "zdjęcie 2" : "office_images/4th_floor_2.jpeg",
       "numer": 4,
       "dostepnosc": false,
       "powierzchnia": "1600 m²",
