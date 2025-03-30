@@ -14,3 +14,10 @@ class OfficeInquiry(BaseModel):
     rental_period_unlimited: bool = Field(..., description="Czy najem ma być na czas nieokreślony (true/false)")
     access_hours: str = Field(..., description="Godziny dostępu (np. 24/7, w godzinach pracy, inne)")
     monthly_budget_net_PLN: float = Field(..., gt=0, description="Miesięczny budżet netto w PLN")
+
+class OfficeChangesForm(BaseModel):
+    # Część II – Preferencje aranżacyjne i wizualizacyjne
+    interior_style: str = Field(..., description="Preferowany styl aranżacji (np. Nowoczesny, Klasyczny, Industrialny, Skandynawski, Minimalistyczny, Inny)")
+    layout_preferences: List[str] = Field(..., description="Lista preferowanych układów biura, np. Open space, Sale konferencyjne, Biura prywatne, Kącik relaksacyjny")
+    equipment_and_features: List[str] = Field(..., description="Lista wymaganych elementów wyposażenia (np. Meble biurowe, Krzesła ergonomiczne, Stoliki kawowe, Stół bilardowy i inne)")
+    additional_notes_on_design: Optional[str] = Field(None, description="Dodatkowe wymagania i preferencje dotyczące aranżacji biura")

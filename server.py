@@ -8,7 +8,7 @@ from openai import OpenAI
 import json
 
 # Import your schema
-from schemas import OfficeInquiry
+from schemas import OfficeInquiry, OfficeChangesForm
 
 # Load environment variables
 load_dotenv()
@@ -42,7 +42,7 @@ class OfficeRecommendation(BaseModel):
     office_images: List[str]
     recommendation_text: str
 
-def prepare_empty_inquiry(schema: type[BaseModel]):
+def prepare_empty_form(schema: type[BaseModel]):
     inquiry = schema.model_json_schema()['properties']
     for k in inquiry:
         inquiry[k]['value'] = None
@@ -91,16 +91,16 @@ def extract_inquiry_fields(inquiry: Dict[str, Any], user_answer: str) -> Dict[st
     
     return json.loads(response.choices[0].message.content)
 
-def update_inquiry(inquiry: Dict[str, Any], response_dict: Dict[str, Any]) -> Dict[str, Any]:
+def update_form(form_state: Dict[str, Any], response_dict: Dict[str, Any]) -> Dict[str, Any]:
     for k in response_dict:
-        if k in inquiry:
-            inquiry[k]['value'] = response_dict[k]
-    return inquiry
+        if k in form_state:
+            form_state[k]['value'] = response_dict[k]
+    return form_state
 
-def is_inquiry_complete(inquiry: Dict[str, Any]) -> bool:
+def is_form_complete(form_state: Dict[str, Any]) -> bool:
     # Check if all required fields have values
-    for field in inquiry:
-        if inquiry[field]['value'] is None:
+    for field in form_state:
+        if form_state[field]['value'] is None:
             return False
     return True
 
@@ -226,6 +226,91 @@ def get_building_images(towers, building_name):
     for building in towers:
         if building['budynek']['nazwa'] == building_name:
             return building['zdjecia']["zewnetrzne"]
+        
+def create_next_design_question(form_state: Dict[str, Any]) -> str:
+    messages = [
+        {
+            "role": "system", 
+            "content": """Jesteś pomocnym asystentem projektanta wnętrz, który pomaga klientowi określić preferencje dotyczące aranżacji biura. Na podstawie aktualnego stanu formularza zadaj pytanie użytkownikowi, aby uzyskać część brakujących informacji. Nie pytaj o zbyt wiele informacji na raz. Nie informuj użytkownika o tym, że wypełnia formularz. Zadawaj jedynie pytania."""
+        },
+        {
+            "role": "developer",
+            "content": str(form_state)
+        }
+    ]
+
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=messages
+    )
+    
+    return response.choices[0].message.content
+
+def extract_design_fields(form_state: Dict[str, Any], user_answer: str) -> Dict[str, Any]:
+    messages = [
+        {
+            "role": "system", 
+            "content": """Jesteś pomocnym asystentem projektanta wnętrz, który pomaga klientowi określić preferencje dotyczące aranżacji biura. Na podstawie odpowiedzi użytkownika wypełnij odpowiednie pola formularza. Zwróć tylko pola, na które użytkownik udzielił informacji w formacie JSON. Nie zwracaj żadnych dodatkowych informacji ani komunikatów."""
+        },
+        {
+            "role": "developer",
+            "content": str(form_state)
+        },
+        {
+            "role": "user",
+            "content": user_answer
+        }
+    ]
+
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=messages,
+        response_format={"type": "json_object"}
+    )
+    
+    return json.loads(response.choices[0].message.content)
+
+@app.post("/start-design/")
+async def start_design():
+    try:
+        empty_form = prepare_empty_form(OfficeChangesForm)
+        initial_question = create_next_design_question(empty_form)
+        
+        initial_state = ConversationState(
+            next_question=initial_question,
+            inquiry_state=empty_form,
+            conversation_completed=False
+        )
+        
+        return initial_state
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
+@app.post("/parse-design-message/")
+async def parse_design_message(user_input: UserMessage):
+    try:
+        # Extract current state
+        conversation_state = user_input.conversation_state
+        current_form = conversation_state.inquiry_state
+        
+        # Extract information from user message
+        extracted_fields = extract_design_fields(current_form, user_input.message)
+        
+        # Update form state
+        updated_form = update_form(current_form, extracted_fields)
+        conversation_state.inquiry_state = updated_form
+        
+        # Check if form is complete
+        if is_form_complete(updated_form):
+            conversation_state.conversation_completed = True
+        else:
+            # Generate next question
+            next_question = create_next_design_question(updated_form)
+            conversation_state.next_question = next_question
+        
+        return conversation_state
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/find-best-inquiry-match/")
 async def find_best_inquiry_match(inquiry_state: Dict[str, Any]):
@@ -264,7 +349,7 @@ async def find_best_inquiry_match(inquiry_state: Dict[str, Any]):
 @app.post("/start-inquiry/")
 async def start_inquiry():
     try:
-        empty_inquiry = prepare_empty_inquiry(OfficeInquiry)
+        empty_inquiry = prepare_empty_form(OfficeInquiry)
         initial_question = create_next_inquiry_question(empty_inquiry)
         
         initial_state = ConversationState(
@@ -288,11 +373,11 @@ async def parse_inquiry_message(user_input: UserMessage):
         extracted_fields = extract_inquiry_fields(current_inquiry, user_input.message)
         
         # Update inquiry state
-        updated_inquiry = update_inquiry(current_inquiry, extracted_fields)
+        updated_inquiry = update_form(current_inquiry, extracted_fields)
         conversation_state.inquiry_state = updated_inquiry
         
         # Check if inquiry is complete
-        if is_inquiry_complete(updated_inquiry):
+        if is_form_complete(updated_inquiry):
             conversation_state.conversation_completed = True
         else:
             # Generate next question
