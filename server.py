@@ -16,6 +16,8 @@ load_dotenv()
 
 app = FastAPI()
 
+OFFICE_IMAGES = []
+
 # Add CORS middleware to allow frontend requests
 app.add_middleware(
     CORSMiddleware,
@@ -303,6 +305,80 @@ def extract_design_fields(form_state: Dict[str, Any], user_answer: str) -> Dict[
     
     return json.loads(response.choices[0].message.content)
 
+@app.post("/get-initial-design/")
+async def get_initial_design(design_preferences: Dict[str, Any]):
+    try:
+        # Format preferences
+        preferences_json = json.dumps(design_preferences, ensure_ascii=False, indent=2)
+
+        # Build initial prompt content
+        content = [
+            {
+                "type": "text",
+                "text": f"""
+    You are an experienced interior designer specializing in office spaces.
+
+    I'm showing you {len(OFFICE_IMAGES)} empty office spaces that need to be designed according to the following requirements:
+
+    # DESIGN PREFERENCES
+    {preferences_json}
+
+    # TASK
+    Create a detailed visualization description for each space, distributing the requested elements logically across the images while maintaining a cohesive Scandinavian design style.
+
+    Important guidelines:
+
+    1. Don't duplicate major functional areas (e.g., don't put the chill-out room in more than one image).
+    2. Some ares should appear simillar if there is enought space (e.g. work space if design prefferences mentioned only work space and chill-out room).
+    3. Maintain the preffered style consistently across all spaces.
+    4. Distribute the requested equipment and features logically between the spaces based on what would work in each area.
+    5. Consider the actual architecture and features visible in each image.
+    6. Include specific details about colors, materials, furniture placement, and lighting.
+    7. Include office equipement that was mentioned in the preferences.
+
+    # RESPONSE FORMAT
+    Return a JSON array with one object per image, each with:
+    - "space_name": Name of the functional space
+    - "design_description": Detailed description of the design
+    - "layout_description": Detailed description of the layout and items (for further visualization purposes)
+    - "key_elements": List of key elements included in the space
+
+    Return only the JSON array, no extra explanation.
+    """
+
+            }
+        ]
+
+        # Add each image to the content
+        for i, base64_image in enumerate(OFFICE_IMAGES):
+            content.append({
+                "type": "image_url",
+                "image_url": {
+                    "url": f"{base64_image}",
+                    "detail": "high"
+                }
+            })
+            content.append({
+                "type": "text",
+                "text": f"Image {i + 1}: Empty office space to be designed."
+            })
+
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {
+                    "role": "user",
+                    "content": content
+                }
+            ],
+            response_format={"type": "json_object"}
+        )
+
+        result = json.loads(response.choices[0].message.content)
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 @app.post("/start-design/")
 async def start_design():
     try:
@@ -365,6 +441,9 @@ async def find_best_inquiry_match(inquiry_state: Dict[str, Any]):
         office_text = omatches['recommendation']
         office_images = get_floor_images(towers, best_building, best_office)
 
+        global OFFICE_IMAGES
+        OFFICE_IMAGES = office_images
+        
         response = OfficeRecommendation(
             building_match=str(best_building),
             building_images=building_images,
