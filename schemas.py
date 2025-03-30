@@ -10,7 +10,7 @@ class OfficeInquiry(BaseModel):
     number_of_employees: int = Field(..., gt=0, description="Liczba pracowników/stanowisk pracy")
     office_type: str = Field(..., description="Rodzaj przestrzeni (np. Biuro prywatne, Open space, Coworking, Inne)")
     rental_period_start: date = Field(..., description="Data rozpoczęcia najmu (format RRRR-MM-DD)")
-    rental_period_end: Optional[date] = Field(None, description="Data zakończenia najmu, jeśli dotyczy")
+    rental_period_end: Optional[date] = Field(..., description="Data zakończenia najmu (format RRRR-MM-DD)")
     access_hours: str = Field(..., description="Godziny dostępu (np. 24/7, w godzinach pracy, inne)")
     monthly_budget_net_PLN: float = Field(..., gt=0, description="Miesięczny budżet netto w PLN")
     short_term_rental: bool = Field(..., description="Czy rozważana jest krótkoterminowa umowa najmu (do 6 miesięcy)?")

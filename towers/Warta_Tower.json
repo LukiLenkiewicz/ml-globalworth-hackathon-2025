@@ -31,11 +31,10 @@
       "zdjecia": [
         "office_images/empty_office_4_1.jpeg",
         "office_images/empty_office_4_2.jpg",
-        "office_images/empty_office_4_3.jpg",
-        "office_images/empty_office_4_4.jpg"
+        "office_images/empty_office_4_3.jpg"
       ],
       "numer": 4,
-      "dostepnosc": false,
+      "dostepnosc": true,
       "powierzchnia": "1600 m²",
       "cena": "62 PLN/m²",
       "najkrotszy_okres_najmu": "24 miesiace",
