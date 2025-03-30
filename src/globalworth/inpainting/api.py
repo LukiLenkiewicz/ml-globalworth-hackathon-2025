@@ -4,7 +4,7 @@ from PIL import Image
 
 
 async def read_image(image):
-    content = await image.read()
+    content = base64.b64decode(image)
     pil_image = Image.open(BytesIO(content))
     pil_image = pil_image.resize((512, 512))
     return pil_image
