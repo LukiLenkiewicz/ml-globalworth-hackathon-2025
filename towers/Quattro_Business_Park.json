@@ -1,0 +1,84 @@
+{
+    "zdjecia": {
+      "zewnetrzne": "tower_images/Quattro_Business_Park.jpg",
+      "wewnetrzne": [
+        "office_images/empty_office_1_1.jpeg",
+        "office_images/empty_office_2_1.jpg"
+      ]
+    },
+    "budynek": {
+      "nazwa": "Quattro Business Park",
+      "adres": "al. Bora-Komorowskiego 25a, 31-476 Kraków",
+      "miasto": "Kraków",
+      "lokalizacja": "Prądnik Czerwony, Kraków",
+      "opis_okolicy": "Quattro Business Park to kompleks biurowy położony przy jednej z głównych arterii komunikacyjnych Krakowa. W bezpośrednim sąsiedztwie znajdują się centra handlowe Serenada i Krokus, Park Wodny oraz Multikino. Okolica jest dobrze rozwinięta handlowo-usługowo i oferuje szybki dostęp do centrum miasta oraz autostrady A4."
+    },
+    "pietra": [
+      {
+        "zdjecia": [
+          "office_images/office_1.png",
+          "office_images/office_2.jpg",
+          "office_images/office_3.jpg"
+        ],
+        "numer": 10,
+        "dostepnosc_od": "01.05.2025",
+        "powierzchnia": "1100 m²",
+        "cena": "48 PLN/m²",
+        "najkrotszy_okres_wynajmu": "3 miesiace",
+        "wydzielenia": [200, 800, 1100]
+      }
+    ],
+    "udogodnienia": [
+      "klimatyzacja",
+      "system zarzadzania budynkiem",
+      "monitoring",
+      "parking podziemny",
+      "restauracje i kawiarnie"
+    ],
+    "transport": {
+      "metro": [],
+      "autobus": [
+        {
+          "przystanek": "Bora-Komorowskiego",
+          "odleglosc": "313 m",
+          "linie": ["159", "172", "501", "502", "511", "608"]
+        },
+        {
+          "przystanek": "Rondo Barei",
+          "odleglosc": "472 m",
+          "linie": ["128", "129", "132", "138", "139", "152", "182", "184", "189", "193", "250", "260", "270", "442", "482", "601", "611", "801", "802", "803", "805", "806", "814", "828", "838", "842", "872", "884", "888", "899"]
+        },
+        {
+          "przystanek": "Olsza II",
+          "odleglosc": "499 m",
+          "linie": ["129", "138", "159", "172", "801", "802", "805", "838", "872", "608"]
+        }
+      ],
+      "tramwaj": []
+    },
+    "sasiedztwo": [
+      {
+        "nazwa_budynku": "CH Serenada",
+        "odleglosc": "350 m"
+      },
+      {
+        "nazwa_budynku": "Park Wodny Kraków",
+        "odleglosc": "500 m"
+      }
+    ],
+    "uslugi_w_budynku": [
+      "recepcja",
+      "centrum konferencyjne",
+      "placówka medyczna",
+      "kawiarnia"
+    ],
+    "dostepnosc_dla_osob_niepelnosprawnych": true,
+    "powierzchnia_magazynowa": "300 m²",
+    "liczba_miejsc_parkingowych": 250,
+    "typ_parkingu": "podziemny",
+    "typ_biur": [
+      "open space",
+      "biura zamkniete"
+    ],
+    "wysokosc_kondygnacji": "3 m"
+  }

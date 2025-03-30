@@ -429,6 +429,8 @@ async def find_best_inquiry_match(inquiry_state: Dict[str, Any]):
         inquiry_dict = parse_inquiry_dict(inquiry_state)
         towers = load_office_database()
         
+        is_short_term = inquiry_dict.get('short_term_rental', False)
+        
         # Get building match
         bmatches = find_inquiry_match(inquiry_dict, towers, "building")
         best_building = bmatches['best_match']
@@ -450,7 +452,8 @@ async def find_best_inquiry_match(inquiry_state: Dict[str, Any]):
             office_match=str(best_office),
             office_images=office_images,
             
-            recommendation_text=building_text + office_text
+            recommendation_text=building_text + office_text,
+            is_short_term=is_short_term
         )
         return response
     except Exception as e:
