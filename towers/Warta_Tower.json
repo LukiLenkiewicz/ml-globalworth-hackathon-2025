@@ -2,8 +2,8 @@
   "zdjecia": {
     "zewnetrzne": "Warta_Tower.jpg",
     "wewnetrzne": [
-      "empty_office_3.jpeg",
-      "empty_office_4.jpeg"
+      "office_images/empty_office_3_1.jpeg",
+      "office_images/empty_office_4_1.jpeg"
     ]
   },
   "budynek": {
@@ -15,8 +15,11 @@
   },
   "pietra": [
     {
-      "zdjęcie 1" : "office_images/3rd_floor_1.jpg",
-      "zdjęcie 2" : "office_images/3rd_floor_2.jpg",
+      "zdjecia": {
+      "zdjecie 1" : "office_images/empty_office_3_1.jpeg",
+      "zdjecie 2" : "office_images/empty_office_3_2.png",
+      "zdjecie 3" : "office_images/empty_office_3_3.png"
+      },
       "numer": 3,
       "dostepnosc": true,
       "powierzchnia": "1300 m²",
@@ -25,8 +28,11 @@
       "wydzielenia": [600, 1000, 1200]
     },
     {
-      "zdjęcie 1" : "office_images/4th_floor_1.jpg",
-      "zdjęcie 2" : "office_images/4th_floor_2.jpeg",
+      "zdjecia": {
+      "zdjecie 1" : "office_images/empty_office_4_1.jpeg",
+      "zdjecie 2" : "office_images/empty_office_4_2.png",
+      "zdjecie 3" : "office_images/empty_office_4_3.png"
+      },
       "numer": 4,
       "dostepnosc": false,
       "powierzchnia": "1600 m²",

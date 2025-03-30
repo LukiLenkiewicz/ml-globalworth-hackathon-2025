@@ -2,8 +2,8 @@
   "zdjecia": {
     "zewnetrzne": "Warsaw_Trade_Tower.jpg",
     "wewnetrzne": [
-      "empty_office_1.jpeg",
-      "empty_office_2.jpeg"
+      "office_images/empty_office_1_1.jpeg",
+      "office_images/empty_office_2_1.jpg"
     ]
   },
   "budynek": {
@@ -15,8 +15,11 @@
   },
   "pietra": [
     {
-      "zdjęcie 1" : "office_images/1st_floor_1.jpeg",
-      "zdjęcie 2" : "office_images/1st_floor_2.jpg",
+      "zdjecia": {
+      "zdjecie 1" : "office_images/empty_office_1_1.jpeg",
+      "zdjecie 2" : "office_images/empty_office_1_2.png",
+      "zdjecie 3" : "office_images/empty_office_1_3.png"
+      },
       "numer": 1,
       "dostepnosc_od": "04.04.2025",
       "powierzchnia": "1000 m²",
@@ -25,8 +28,11 @@
       "wydzielenia": [600, 1000, 1200]
     },
     {
-      "zdjęcie 1" : "office_images/2nd_floor_1.jpg",
-      "zdjęcie 2" : "office_images/2nd_floor_2.jpg",
+      "zdjecia": {
+      "zdjecie 1" : "office_images/empty_office_2_1.jpg",
+      "zdjecie 2" : "office_images/empty_office_2_2.jpg",
+      "zdjecie 3" : "office_images/empty_office_2_3.jpg"
+      },
       "numer": 2,
       "dostepnosc_od": "10.10.2026",
       "powierzchnia": "1200 m²",
