@@ -375,6 +375,7 @@ async def get_initial_design(design_preferences: Dict[str, Any]):
         )
 
         result = json.loads(response.choices[0].message.content)
+        result.update({"images": OFFICE_IMAGES})
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
