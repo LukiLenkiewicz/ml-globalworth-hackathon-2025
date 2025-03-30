@@ -228,32 +228,35 @@ def get_floor_images(towers, building_name, floor_number):
                     if floor['numer'] == floor_number:
                         image_paths = floor.get('zdjecia', [])
                         
-                        for path in image_paths:
-                            path = os.path.join(os.getcwd(), path)
-                            try:
-                                with open(path, "rb") as image_file:
-                                    encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
-                                    base64_images.append(f"data:image/jpeg;base64,{encoded_string}")
-                            except FileNotFoundError:
-                                print(f"File not found: {path}")
-                                continue
-                        return base64_images
+                        return image_paths
+                        
+                        # for path in image_paths:
+                        #     path = os.path.join(os.getcwd(), path)
+                        #     try:
+                        #         with open(path, "rb") as image_file:
+                        #             encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
+                        #             base64_images.append(f"data:image/jpeg;base64,{encoded_string}")
+                        #     except FileNotFoundError:
+                        #         print(f"File not found: {path}")
+                        #         continue
+                        # return base64_images
     else:
         image_paths = [
             'office_mocks/space1/empty_office_3_1.png',
             'office_mocks/space2/empty_office_3_2.png',
             'office_mocks/space3/empty_office_3_3.png'
         ]
-        for path in image_paths:
-            try:
-                with open(path, "rb") as image_file:
-                    encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
-                    base64_images.append(f"data:image/jpeg;base64,{encoded_string}")
-            except FileNotFoundError:
-                print(f"File not found: {path}")
-                continue
+        return image_paths
+        # for path in image_paths:
+        #     try:
+        #         with open(path, "rb") as image_file:
+        #             encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
+        #             base64_images.append(f"data:image/jpeg;base64,{encoded_string}")
+        #     except FileNotFoundError:
+        #         print(f"File not found: {path}")
+        #         continue
                     
-        return base64_images
+        # return base64_images
                 
 def get_building_images(towers, building_name):
     base64_images = []
@@ -263,19 +266,21 @@ def get_building_images(towers, building_name):
             image_paths = building['zdjecia'].get("zewnetrzne", [])
             if not isinstance(image_paths, list):
                 image_paths = [image_paths]
+                
+            return image_paths
             
-            for path in image_paths:
-                try:
-                    path = os.path.join(os.getcwd(), path)
-                    with open(path, "rb") as image_file:
-                        encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
-                        base64_images.append(f"data:image/jpeg;base64,{encoded_string}")
-                except FileNotFoundError:
-                    print(f"File not found: {path}")
-                    continue
-            break
+    #         for path in image_paths:
+    #             try:
+    #                 path = os.path.join(os.getcwd(), path)
+    #                 with open(path, "rb") as image_file:
+    #                     encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
+    #                     base64_images.append(f"data:image/jpeg;base64,{encoded_string}")
+    #             except FileNotFoundError:
+    #                 print(f"File not found: {path}")
+    #                 continue
+    #         break
             
-    return base64_images
+    # return base64_images
         
 def create_next_design_question(form_state: Dict[str, Any]) -> str:
     messages = [
