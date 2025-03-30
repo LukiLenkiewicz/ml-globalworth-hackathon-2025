@@ -42,6 +42,7 @@ class OfficeRecommendation(BaseModel):
     office_match: str
     office_images: List[str]
     recommendation_text: str
+    is_short_term: bool
 
 def prepare_empty_form(schema: type[BaseModel]):
     inquiry = schema.model_json_schema()['properties']
