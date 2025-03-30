@@ -1,3 +1,4 @@
+import base64
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -216,16 +217,50 @@ def parse_inquiry_dict(inquiry_state: Dict[str, Any]):
     return {k: v['value'] for k, v in inquiry_state.items()}
 
 def get_floor_images(towers, building_name, floor_number):
+    base64_images = []
+    
     for building in towers:
         if building['budynek']['nazwa'] == building_name:
             for floor in building['pietra']:
                 if floor['numer'] == floor_number:
-                    return floor['zdjecia']
+                    image_paths = floor.get('zdjecia', [])
+                    
+                    for path in image_paths:
+                        path = os.path.join(os.getcwd(), path)
+                        print(path)
+                        try:
+                            with open(path, "rb") as image_file:
+                                encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
+                                base64_images.append(f"data:image/jpeg;base64,{encoded_string}")
+                        except FileNotFoundError:
+                            print(f"File not found: {path}")
+                            continue
+                    return base64_images
+                    
+    return base64_images
                 
 def get_building_images(towers, building_name):
+    base64_images = []
+    
     for building in towers:
         if building['budynek']['nazwa'] == building_name:
-            return building['zdjecia']["zewnetrzne"]
+            image_paths = building['zdjecia'].get("zewnetrzne", [])
+            if not isinstance(image_paths, list):
+                image_paths = [image_paths]
+            
+            for path in image_paths:
+                try:
+                    path = os.path.join(os.getcwd(), path)
+                    print(path)
+                    with open(path, "rb") as image_file:
+                        encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
+                        base64_images.append(f"data:image/jpeg;base64,{encoded_string}")
+                except FileNotFoundError:
+                    print(f"File not found: {path}")
+                    continue
+            break
+            
+    return base64_images
         
 def create_next_design_question(form_state: Dict[str, Any]) -> str:
     messages = [
@@ -334,7 +369,7 @@ async def find_best_inquiry_match(inquiry_state: Dict[str, Any]):
 
         response = OfficeRecommendation(
             building_match=str(best_building),
-            building_images=[building_images],
+            building_images=building_images,
             
             office_match=str(best_office),
             office_images=office_images,
