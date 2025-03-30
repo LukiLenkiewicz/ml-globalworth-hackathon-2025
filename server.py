@@ -227,7 +227,6 @@ def get_floor_images(towers, building_name, floor_number):
                     
                     for path in image_paths:
                         path = os.path.join(os.getcwd(), path)
-                        print(path)
                         try:
                             with open(path, "rb") as image_file:
                                 encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
@@ -251,7 +250,6 @@ def get_building_images(towers, building_name):
             for path in image_paths:
                 try:
                     path = os.path.join(os.getcwd(), path)
-                    print(path)
                     with open(path, "rb") as image_file:
                         encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
                         base64_images.append(f"data:image/jpeg;base64,{encoded_string}")
