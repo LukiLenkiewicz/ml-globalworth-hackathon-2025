@@ -46,7 +46,7 @@ async def modify_image(
 ):
     image = FIXED_IMAGES.pop(0)
     pil_image = Image.open(image)
-    image = encode_image(image)
+    image = encode_image(pil_image)
 
     results = []
     results.append(
