@@ -15,11 +15,11 @@
   },
   "pietra": [
     {
-      "zdjecia": {
-      "zdjecie 1" : "office_images/empty_office_1_1.jpeg",
-      "zdjecie 2" : "office_images/empty_office_1_2.png",
-      "zdjecie 3" : "office_images/empty_office_1_3.png"
-      },
+      "zdjecia": [
+        "office_images/empty_office_1_1.jpeg",
+        "office_images/empty_office_1_2.png",
+        "office_images/empty_office_1_3.png"
+      ],
       "numer": 1,
       "dostepnosc_od": "04.04.2025",
       "powierzchnia": "1000 m²",
@@ -28,11 +28,11 @@
       "wydzielenia": [600, 1000, 1200]
     },
     {
-      "zdjecia": {
-      "zdjecie 1" : "office_images/empty_office_2_1.jpg",
-      "zdjecie 2" : "office_images/empty_office_2_2.jpg",
-      "zdjecie 3" : "office_images/empty_office_2_3.jpg"
-      },
+      "zdjecia": [
+        "office_images/empty_office_2_1.jpg",
+        "office_images/empty_office_2_2.jpg",
+        "office_images/empty_office_2_3.jpg"
+      ],
       "numer": 2,
       "dostepnosc_od": "10.10.2026",
       "powierzchnia": "1200 m²",
