@@ -220,24 +220,40 @@ def parse_inquiry_dict(inquiry_state: Dict[str, Any]):
 def get_floor_images(towers, building_name, floor_number):
     base64_images = []
     
-    for building in towers:
-        if building['budynek']['nazwa'] == building_name:
-            for floor in building['pietra']:
-                if floor['numer'] == floor_number:
-                    image_paths = floor.get('zdjecia', [])
+    if building_name == 'Quattro Business Park':
+    
+        for building in towers:
+            if building['budynek']['nazwa'] == building_name:
+                for floor in building['pietra']:
+                    if floor['numer'] == floor_number:
+                        image_paths = floor.get('zdjecia', [])
+                        
+                        for path in image_paths:
+                            path = os.path.join(os.getcwd(), path)
+                            try:
+                                with open(path, "rb") as image_file:
+                                    encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
+                                    base64_images.append(f"data:image/jpeg;base64,{encoded_string}")
+                            except FileNotFoundError:
+                                print(f"File not found: {path}")
+                                continue
+                        return base64_images
+    else:
+        image_paths = [
+            'office_mocks/space1/empty_office_3_1.png',
+            'office_mocks/space2/empty_office_3_2.png',
+            'office_mocks/space3/empty_office_3_3.png'
+        ]
+        for path in image_paths:
+            try:
+                with open(path, "rb") as image_file:
+                    encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
+                    base64_images.append(f"data:image/jpeg;base64,{encoded_string}")
+            except FileNotFoundError:
+                print(f"File not found: {path}")
+                continue
                     
-                    for path in image_paths:
-                        path = os.path.join(os.getcwd(), path)
-                        try:
-                            with open(path, "rb") as image_file:
-                                encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
-                                base64_images.append(f"data:image/jpeg;base64,{encoded_string}")
-                        except FileNotFoundError:
-                            print(f"File not found: {path}")
-                            continue
-                    return base64_images
-                    
-    return base64_images
+        return base64_images
                 
 def get_building_images(towers, building_name):
     base64_images = []
