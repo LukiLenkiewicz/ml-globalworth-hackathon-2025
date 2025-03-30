@@ -16,8 +16,6 @@ load_dotenv()
 
 app = FastAPI()
 
-OFFICE_IMAGES = []
-
 # Add CORS middleware to allow frontend requests
 app.add_middleware(
     CORSMiddleware,
@@ -307,6 +305,10 @@ def extract_design_fields(form_state: Dict[str, Any], user_answer: str) -> Dict[
 
 @app.post("/get-initial-design/")
 async def get_initial_design(design_preferences: Dict[str, Any]):
+    office_images = design_preferences.pop('office_images', [])
+    if not office_images:
+        raise HTTPException(status_code=400, detail="No office images provided.")
+    
     try:
         # Format preferences
         preferences_json = json.dumps(design_preferences, ensure_ascii=False, indent=2)
@@ -318,7 +320,7 @@ async def get_initial_design(design_preferences: Dict[str, Any]):
                 "text": f"""
     You are an experienced interior designer specializing in office spaces.
 
-    I'm showing you {len(OFFICE_IMAGES)} empty office spaces that need to be designed according to the following requirements:
+    I'm showing you {len(office_images)} empty office spaces that need to be designed according to the following requirements:
 
     # DESIGN PREFERENCES
     {preferences_json}
@@ -350,7 +352,7 @@ async def get_initial_design(design_preferences: Dict[str, Any]):
         ]
 
         # Add each image to the content
-        for i, base64_image in enumerate(OFFICE_IMAGES):
+        for i, base64_image in enumerate(office_images):
             content.append({
                 "type": "image_url",
                 "image_url": {
@@ -375,7 +377,6 @@ async def get_initial_design(design_preferences: Dict[str, Any]):
         )
 
         result = json.loads(response.choices[0].message.content)
-        result.update({"images": OFFICE_IMAGES})
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -441,9 +442,6 @@ async def find_best_inquiry_match(inquiry_state: Dict[str, Any]):
         best_office = omatches['best_match']
         office_text = omatches['recommendation']
         office_images = get_floor_images(towers, best_building, best_office)
-
-        global OFFICE_IMAGES
-        OFFICE_IMAGES = office_images
         
         response = OfficeRecommendation(
             building_match=str(best_building),
